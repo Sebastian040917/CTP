@@ -1,0 +1,51 @@
+
+<div class="container">
+  
+  <div class="card">
+    <div class="card-header">
+        Listado de plantas
+    </div>
+    <br>
+    <form >
+      <div class="form-group">
+        <label for=""> Planta
+          <input type="text" name="" id="">
+        </label>
+        <button>Agregar</button>
+         <button>Mas plantas  </button>
+      </div>
+    </form>
+    <div class="card-block">      
+        <table class="table table-sm">
+            <thead class="thead-inverse">
+            <tr>
+              <th></th>
+              <th>Plant code</th>
+              <th>Name plant</th>
+              <th>Duration</th>
+              <th>Distance</th>
+              <th>CTP</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let plant of plantsListFull">
+                <td><input type="checkbox" [checked]="plant.Selected" /></td>
+                <td>{{plant.PlantCode}}</td>
+                <td>{{plant.Nombre}}</td>
+                <td>{{plant.Duracion}}</td>
+                <td>{{plant.Distancia}}</td>
+                <td>{{plant.CTP}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+
+</div>
+
+
+ <ul *ngFor="let pl of plants">
+  <li >
+    {{pl.PlantCode}} => {{pl.Nombre}}
+  </li>
+</ul> 
