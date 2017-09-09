@@ -1,4 +1,4 @@
-export interface Plant {
+export interface PlantClient {
     Selected: boolean;
     PlantCode: string;
     Nombre: string;
@@ -7,7 +7,7 @@ export interface Plant {
     CTP: string;
 }
 
-export interface PlantLST {
+export interface AllPlantList{
     PlantCode: string;
     Nombre: string;
 }

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import {  Plant,PlantLST } from '../../models/plant/plant';
+import {  PlantClient,AllPlantList } from '../../models/plant/plant';
 
 @Injectable()
 export class PlantService {
 
   constructor() { }
-  getPlants():Promise<Plant[]>{
-    return Promise.resolve(PLANTSDATA);
+  getPlants():Promise<PlantClient[]>{
+    return Promise.resolve(PLANTSCL);
   }
 
-  FillListPlants():Promise<PlantLST[]>{
+  FillListPlants():Promise<AllPlantList[]>{
     return Promise.resolve(LSTPLANT)
   }
 }
 
-const PLANTSDATA: Plant[] = [
+const PLANTSCL: PlantClient[] = [
   {Selected: false, PlantCode: 'DF43', Distancia: '0.0',Nombre: 'MX-PLANT-CASR',  Duracion: '00:20', CTP:'Camion' },
   {Selected: true,  PlantCode: 'DF47', Distancia: '0.0',Nombre: 'MX-PLANT-CSCY',  Duracion: '00:25', CTP:'Camion' },
   {Selected: false, PlantCode: 'DF49', Distancia: '0.0',Nombre: 'MX-PLANT-VSVK',  Duracion: '00:30', CTP:'Camion' },
@@ -25,7 +25,7 @@ const PLANTSDATA: Plant[] = [
   {Selected: false, PlantCode: 'DF12', Distancia: '0.0',Nombre: 'MX-PLANT-NTFN',  Duracion: '00:40', CTP:'Camion' }
 ];
 
-const LSTPLANT: PlantLST[] = [
+const LSTPLANT: AllPlantList[] = [
   { PlantCode: 'DF43',Nombre: 'MX-PLANT-CASR' },
   { PlantCode: 'DF47',Nombre: 'MX-PLANT-CSCY' },
   { PlantCode: 'DF49',Nombre: 'MX-PLANT-VSVK' },
