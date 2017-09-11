@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantService } from '../../services/plant/plant.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+//import { Birds } from '../../models/plant/Birds';  
 
 @Component({
   selector: 'app-plants',
@@ -10,17 +10,68 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PlantComponent implements OnInit {
 
+
+   ///////////////////////////////////////////
+  //  filterargs = {name: 'Crow'};  
+  //  birds: Birds[] = [  
+  //  {id: 11, name: 'Crow'},  
+  //  {id: 12, name: 'Peacock'},  
+  //  {id: 13, name: 'Sparrow'},  
+  //  {id: 14, name: 'Cuckoo'},  
+  //  {id: 15, name: 'Eagle'},  
+  //  {id: 16, name: 'Swan'},  
+  //  {id: 17, name: 'Duck'},  
+  //  {id: 18, name: 'Hen'},  
+  //  {id: 19, name: 'Parrot'},  
+  //  {id: 20, name: 'Woodpecker'}  
+  //  ]  
+
+
+   public query = '';
+   public countries = [ "Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus",
+                       "Belgium","Bosnia & Herzegovina","Bulgaria","Croatia","Cyprus",
+                       "Czech Republic","Denmark","Estonia","Finland","France","Georgia",
+                       "Germany","Greece","Hungary","Iceland","Ireland","Italy","Kosovo",
+                       "Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta",
+                       "Moldova","Monaco","Montenegro","Netherlands","Norway","Poland",
+                       "Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia",
+                       "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom","Vatican City"];
+   public filteredList = [];
+   public elementRef;
+
+   filter() {
+    if (this.query !== ""){
+        this.filteredList = this.LstPlants.filter(function(el){
+          var Texto = (el.PlantCode + el.Nombre);
+            return Texto.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+        
+          });//.bind(this.filteredList));
+    }else{
+        this.filteredList = [];
+    }
+}
+ 
+select(item){
+    this.query = item;
+    this.filteredList = [];
+}
+
+   ///////////////////////////////////////////
   plantsListFull = [];
   plants = [];
   SelectedPlant:string="DF12";
   constructor(private _plantservice: PlantService, private fb: FormBuilder) 
   {
     this.initForm();
+    //this.elementRef = elementRef;
   }
+
+
  
   ngOnInit() {
     this._plantservice.getPlants().then(plants=> this.plantsListFull = plants);
     this._plantservice.FillListPlants().then(pl=> this.plants = pl);
+    
   }
 
   PlantSelected(){
@@ -39,7 +90,7 @@ export class PlantComponent implements OnInit {
   stateForm: FormGroup;
   
     showDropDown = false;
-    states = [
+    LstPlants = [
       {PlantCode: 'AS10',Nombre: 'MX-PLANT-CASR'},
       {PlantCode: 'DS11',Nombre: 'MX-PLANT-CCAS'},
       {PlantCode: 'GS12',Nombre: 'MX-PLANT-CASC'},
@@ -64,19 +115,27 @@ export class PlantComponent implements OnInit {
   selectValue(value) {
     this.stateForm.patchValue({"search": value.PlantCode+" "+value.Nombre});
     this.SelectedPlant = value.PlantCode;
-    this.showDropDown = false;
+    //this.showDropDown = false;
+    
   }
    closeDropDown() {
-     this.showDropDown = !this.showDropDown;
+     this.showDropDown = false;
    }
  
    openDropDown() {
-     this.showDropDown = false;
+     this.showDropDown = true;
    }
  
    getSearchValue() {
      return this.stateForm.value.search;
    }
+
+  
+
+
+
+   ///////////////////////////////////////////
+
 
 
 }

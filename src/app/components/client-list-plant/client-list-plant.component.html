@@ -1,0 +1,58 @@
+<div style="margin: auto;  float:left">
+    <!-- <div>
+      <span>Highlight after: </span>
+      <input type="number" [(ngModel)]="yearLimit" class="form-control input-sm" style="display: inline-block; width: 100px">
+    </div> -->
+    <data-table
+      [items]="plantsListFull"
+      [itemCount]="ListCount"
+      [limit]="5"
+      (reload)="reloadCars($event)"
+      (rowClick)="CickRow($event)"
+      [header] = "false"
+
+  
+      [pagination]="true" 
+      [indexColumn]="false"
+      [selectColumn]="true"
+      [multiSelect]="false"
+      [rowColors]="rowColors"
+      [selectOnRowClick]="true"
+      [rowTooltip] = "rowTooltip"
+      >
+
+      <!-- <data-table-column
+        property="year"
+        header="Year"
+        sortable="true">
+        <template #dataTableCell let-item="item">
+          <input type="number" [(ngModel)]="item.year" class="form-control input-sm" style="width: 75px"/>
+        </template>
+      </data-table-column> -->
+      
+      <data-table-column property="PlantCode"   header="PlantCode" sortable="true"></data-table-column>
+      <data-table-column property="Nombre"      header="Nombre"></data-table-column>
+      <data-table-column property="Distancia"   header="Distancia" sortable="true"></data-table-column>
+      <data-table-column property="Duracion"    header="Duracion" sortable="true"></data-table-column>
+      <data-table-column       header="CTP"> 
+          <template #dataTableCell let-item="item">
+            <div  class="glyphicon glyphicon-shopping-cart"></div>
+            </template>      
+      </data-table-column>
+     
+      <!-- <data-table-column
+         header="Actions">
+        <template #dataTableHeader let-item="item">
+          <i>Actions</i>
+        </template> -->
+        <!--<template #dataTableCell let-item="item">
+          <button (click)="carClicked(item)" class="btn btn-sm btn-default">Buy</button>
+        </template>
+      </data-table-column> -->
+    </data-table>
+    <!-- <div style="margin-top: 10px">
+        <b>Selected:</b>
+        <span *ngIf="ClientPlantTable.selectedRow == null"><i>No item selected</i></span>
+        <span [textContent]="ClientPlantTable.selectedRow && filmsTaClientPlantTableble.selectedRow.item.PlantCode"></span>
+    </div> -->
+  </div>

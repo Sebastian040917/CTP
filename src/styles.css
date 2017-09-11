@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    color: #666666;
+    cursor: default;
+    font-size: 11px;
+    fill: #666666;
+}
+
+.card{
+    position: relative;
+    /* background: red; */
+    min-height: 400px;
+}
+.card-header{
+    color: white;
+    background: #0093ff;
+    padding: 3px;
+    margin-bottom: 2%;
+}
+
+.card-block{
+    padding: 0.5rem 1rem;
+}

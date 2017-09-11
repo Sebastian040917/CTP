@@ -4,15 +4,25 @@
 */
 .plantsComponent{
     border-radius: 10px;
+    
 }
-.plantsComponent .card{
-    position: absolute;
+/* .plantsComponent .card{
+    position: relative;
 }
 .plantsComponent .card-header{
     color: white;
     background: #0093ff;
     padding: 3px;
     margin-bottom: 2%;
+} */
+.plantsComponent  .search-drop-down {
+    z-index: 1;
+    color: #f7f4f4;
+    letter-spacing: 0.7px;
+    background: rgb(0, 146, 255);
+    border-radius: 11px;
+    margin-left: 12px;
+    max-height: 259px;
 }
 .search-bar {
     min-width: 348px;
@@ -44,3 +54,39 @@
 .color-purple {
     color: #024B96;
 }
+
+
+/* table */
+
+/* table {
+    width: 100%;
+}
+
+thead, tbody, tr, td, th { display: block; } */
+
+/* tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 50px;
+}
+
+tbody {
+    height: 120px;
+    overflow-y: auto;
+}
+
+
+
+ thead th {
+    float: left;
+}
+tbody td {
+    float: left;
+}  */
+
+

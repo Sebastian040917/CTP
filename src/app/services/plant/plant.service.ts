@@ -12,6 +12,10 @@ export class PlantService {
   FillListPlants():Promise<AllPlantList[]>{
     return Promise.resolve(LSTPLANT)
   }
+  
+  testService(){
+    console.log("Desde el servicio de plantas");
+  }
 }
 
 const PLANTSCL: PlantClient[] = [
