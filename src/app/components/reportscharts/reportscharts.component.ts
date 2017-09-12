@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
 
 @Component({
@@ -8,143 +8,246 @@ import { Http } from "@angular/http";
     './reportscharts.component.css'
   ]
 })
-export class ReportschartsComponent  {
-  
-    constructor(private http: Http) {
+export class ReportschartsComponent {
+
+  dame(){
+    console.log("presente");
+  }
+  constructor(private http: Http) {
     //http.get('https://cdn.rawgit.com/gevgeny/angular2-highcharts/99c6324d/examples/aapl.json')
     //.subscribe(res => {
-        this.options = {
-            title : { text : 'FIRST' },  
-            xAxis: {  
-              type: 'datetime',
-              tickPixelInterval: 100
-              }, 
-              yAxis: {
-                title: {
-                    text: 'Pedidos'
-                },
-                tickPixelInterval: 21
-                // labels: {
-                //     format: '{value} u'
-                //   }
-                },
-                
-          chart: {//Estilo del chart general
-                // borderColor: '#EBBA95',
-                // borderWidth: 2,
-               // type: 'spline',
-                width: 750,
-                height: 750
-            },
+    this.Master = {
+      title: { text: null },
+      xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 100,
+        crosshair: true,
+       
+      },
+      yAxis: {
+        title: {
+          text: null
+        },
+        tickPixelInterval: 10,
+        event:{
+          Click:function(event){
+            console.log(event);
+          }
+        }
+        //alternateGridColor: '#FDFFD5',
+      },
+      tooltip: {
+        shared: true,
+      },
+      legend: {
+        enabled: false
+      },
+      exporting: {
+        enabled: false
+      },
+      chart: {//Estilo del chart general
+        // borderColor: '#EBBA95',
+        // borderWidth: 2,
+        // type: 'spline',
+        width: 750,
+        height: 250
+      },
 
-            credits: {
-              enabled: false
-          },
-        //   plotOptions: {
-        //     series: {
-        //         showInNavigator: true
-        //     }
-        // },
-            series : [
-            {
-              name: 'Cargas confirmadas',
-              type: 'column',
-              data: Confimadas,
-              //gapSize: 100,
-              // tooltip: {
-              //     valueDecimals: 0,
-              //     formatter: function () {
-              //       return '<b>' + this.series.name + '</b><br/>' + this.x1;
-              //     }
-              //   },
-                       
-              fillColor: {
-                  linearGradient: {
-                      x1: 0,
-                      y1: 0,
-                      x2: 0,
-                      y2: 1
-                  },
-                  //  stops: [
-                  //   [0, 'red'],
-                  //   [1, '#E0E0E0']
-                  //  ]
-              },
-              threshold: true
-          },
-          {
+      credits: {
+        enabled: false
+      },
+      series: [
+        {
+          name: 'Cargas confirmadas',
+          type: 'column',
+          data: Confimadas,
+          
+        },
+        {
+          name: 'Cargas en proceso',
+          type: 'column',
+          data: EnProceso,
+          color:'orange'
+        },
+        {
           type: 'spline',
-          name: 'Unidades restantes',
+          dashStyle:'longdash',
+          name: 'Capacidad de unidades',
           data: URest,
+          color:'red',
           marker: { //estilo de la marca
               lineWidth: 1, //grosor
               lineColor: 'yellow', //contorno
               fillColor: 'red'//dentro
             }        
+          }  ,
+          {
+          type: 'spline',
+          name: 'Capacidad de plantas',
+          data: CPlantas,
+          color:'green',//crismon
+          marker: {
+              lineWidth: 1,
+              lineColor: 'yellow',
+              fillColor: 'green'
+            }        
           },
-          // {
-          // type: 'spline',
-          // name: 'Capacidad de plantas',
-          // data: CPlantas,
-          // marker: {
-          //     lineWidth: 2,
-          //     //lineColor: Highcharts.getOptions().colors[3],
-          //     fillColor: 'white'
-          //   }        
-          // }
-          
-          ]
-        };
-   // });
-}
-options: Object;
+          {
+            type: 'spline',
+            name: 'Pedidos translapados',
+            data: Translapados,
+            color:'brown',//crismon
+            marker: {
+                lineWidth: 1,
+                lineColor: 'white',
+                fillColor: 'brown'
+              }        
+            }
+
+      ]
+    };
+
+    this.Detail = {
+      color: '#FF00FF',
+      title: { text: null },
+      xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 100
+      },
+      yAxis: {
+        title: {
+          text: null
+        },
+        tickPixelInterval: 21
+      },
+      legend: {
+        enabled: false
+      },
+      exporting: {
+        enabled: false
+      },
+      chart: {
+        width: 750,
+        height: 100
+      },
+
+      credits: {
+        enabled: false
+      },
+      series: [
+        {
+          name: 'Unidades Restantes',
+          type: 'line',
+          color: 'purple',
+          lineWidth: 1,
+          data: UnidadesReport,
+          threshold: false
+        }
+
+      ]
+    };
+    // });
+  }
+  Master: Object;
+  Detail: Object;
 }
 
 
 const Confimadas = [
-  [1504742400000,18],
-  [1504746120000,3],
-  [1504746420000,4],
-  [1504746540000,7],
-  [1504746720000,9],
-  [1504746900000,10],
-  [1504747260000,13],
-  [1504747800000,15],
-  [1504749060000,7],
-  [1504752420000,2],
-  [1504754880000,1],
-  [1504761240000,9],
-  [1504773540000,11]   
+  [1504742400000, 18],
+  [1504746120000, 3],
+  [1504746420000, 4],
+  [1504746540000, 7],
+  [1504746720000, 9],
+  [1504746900000, 10],
+  [1504747260000, 13],
+  [1504747800000, 15],
+  [1504749060000, 7],
+  [1504752420000, 2],
+  [1504754880000, 1],
+  [1504761240000, 9],
+  [1504773540000, 11]
+];
+
+const EnProceso = [
+  [1504742400000, 3],
+  [1504746120000, 5],
+  [1504746420000, 9],
+  [1504746540000, 17],
+  [1504746720000, 5],
+  [1504746900000, 13],
+  [1504747260000, 3],
+  [1504747800000, 2],
+  [1504749060000, 15],
+  [1504752420000, 17],
+  [1504754880000, 8],
+  [1504761240000, 12],
+  [1504773540000, 1]
+];
+
+const Translapados = [
+  [1504742400000, 0],
+  [1504746120000, 0],
+  [1504746420000, 0],
+  [1504746540000, 3],
+  [1504746720000, 0],
+  [1504746900000, 0],
+  [1504747260000, 0],
+  [1504747800000, 0],
+  [1504749060000, 0],
+  [1504752420000, 5],
+  [1504754880000, 0],
+  [1504761240000, 0],
+  [1504773540000, 8]
 ];
 
 const URest = [
-  [1504742400000,8],
-  [1504746120000,8],
-  [1504746420000,8],
-  [1504746540000,7],
-  [1504746720000,7],
-  [1504746900000,5],
-  [1504747260000,5],
-  [1504747800000,3],
-  [1504749060000,3],
-  [1504752420000,5],
-  [1504754880000,5],
-  [1504761240000,5],
-  [1504773540000,1]  
+  [1504742400000, 8],
+  [1504746120000, 8],
+  [1504746420000, 8],
+  [1504746540000, 7],
+  [1504746720000, 7],
+  [1504746900000, 5],
+  [1504747260000, 5],
+  [1504747800000, 3],
+  [1504749060000, 3],
+  [1504752420000, 5],
+  [1504754880000, 5],
+  [1504761240000, 5],
+  [1504773540000, 1]
 ];
 
 const CPlantas = [
-  [1504742400000,3],
-  [1504746120000,15],
-  [1504746420000,14],
-  [1504746540000,8],
-  [1504746720000,10],
-  [1504746900000,8],
-  [1504747260000,5],
-  [1504747800000,3],
-  [1504749060000,8],
-  [1504752420000,16],
-  [1504754880000,17],
-  [1504761240000,9],
-  [1504773540000,9]  
+  [1504742400000, 3],
+  [1504746120000, 15],
+  [1504746420000, 14],
+  [1504746540000, 8],
+  [1504746720000, 10],
+  [1504746900000, 8],
+  [1504747260000, 5],
+  [1504747800000, 3],
+  [1504749060000, 8],
+  [1504752420000, 16],
+  [1504754880000, 17],
+  [1504761240000, 9],
+  [1504773540000, 9]
 ];
+
+const UnidadesReport = [
+  [1504742400000, -10],
+  [1504746120000, 5],
+  [1504746420000, 4],
+  [1504746540000, 0],
+  [1504746720000, -2],
+  [1504746900000, -5],
+  [1504747260000, -8],
+  [1504747800000, -12],
+  [1504749060000, -4],
+  [1504752420000, 3],
+  [1504754880000, 4],
+  [1504761240000, -4],
+  [1504773540000, -10]
+
+
+
+]

@@ -7,8 +7,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { ReportschartsComponent } from './components/reportscharts/reportscharts.component';
-import { ChartsreportComponent } from './components/chartsreport/chartsreport.component';
+import { ReportschartsComponent } from './components/reportscharts/reportscharts.component';
+ import { ChartsreportComponent } from './components/chartsreport/chartsreport.component';
 
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
@@ -22,10 +22,13 @@ export function highchartsFactory() {
 
   return hc;
 }
-
+//import { NgxTypeaheadModule } from 'ngx-typeahead';
 import { AppComponent } from './app.component';
 import { PlantComponent } from './components/plant/plant.component';
-import  { PlantService} from './services/plant/plant.service'
+import  { PlantService} from './services/plant/plant.service';
+import { ClientListPlantComponent } from './components/client-list-plant/client-list-plant.component'
+import { CommonModule } from '@angular/common';
+import { DataTableModule } from 'angular-2-data-table';
 
 @NgModule({
   declarations: [
@@ -34,8 +37,10 @@ import  { PlantService} from './services/plant/plant.service'
     ClickOutsideDirective,
     SearchFilterPipe,
     LetterBoldPipe,
-    //ReportschartsComponent,
-    ChartsreportComponent
+    ReportschartsComponent,
+    ChartsreportComponent,//este es el bueno
+    ClientListPlantComponent 
+  
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,9 @@ import  { PlantService} from './services/plant/plant.service'
     FormsModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
-    ChartModule
+    ChartModule,
+     DataTableModule 
+   // NgxTypeaheadModule
   ],
  providers: [
   PlantService,
