@@ -3,7 +3,6 @@ import { PlantService } from '../../services/plant/plant.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-plants',
   templateUrl: './plant.component.html',
