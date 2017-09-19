@@ -10,6 +10,8 @@ body{
     position: relative;
     /* background: red; */
     min-height: 400px;
+    /* width: 50%; */
+    margin-top:10px;
 }
 .card-header{
     color: white;
@@ -20,4 +22,17 @@ body{
 
 .card-block{
     padding: 0.5rem 1rem;
+}
+
+.tooltip-inner {
+    min-width: 100px;
+    max-width: 100%; 
+}
+.tooltip-arrow{
+    border-style: none;
+}
+
+.tooltip-inner > div .container {
+    /* background: bisque; */
+    width: 100%;
 }

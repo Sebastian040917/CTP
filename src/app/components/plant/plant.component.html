@@ -31,33 +31,11 @@
                         <button (click)="SearchMorePlants()" class="btn btn-primary btn-sm">Mas plantas</button>            
                     </label>
             </form>
+
+            <app-datepicker></app-datepicker>
         </div>        
         <div class="card-block table-responsive" style="height: 320px;">
-                <app-client-list-plant></app-client-list-plant>
-            <!-- <table class="table table-hover  table-bordered"  >
-                <thead class="thead">
-                    <tr>
-                        <th>#</th>
-                        <th>Plant code</th>
-                        <th>Name plant</th>
-                        <th>Duration</th>
-                        <th>Distance</th>
-                        <th>CTP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let plant of plantsListFull">
-                        <td><input name="plantcheck" type="checkbox" [checked]="plant.Selected" /></td>
-                        <td>{{plant.PlantCode}}</td>
-                        <td>{{plant.Nombre}}</td>
-                        <td>{{plant.Duracion}}</td>
-                        <td>{{plant.Distancia}}</td>
-                        <td>{{plant.CTP}}</td>
-                    </tr>
-                </tbody>
-            </table> -->
-
-            
+                <app-client-list-plant ></app-client-list-plant>              
         </div>
     </div>
 </div>

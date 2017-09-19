@@ -1,67 +1,164 @@
-import { Component, ViewChild, OnInit  } from '@angular/core';
-import { DataTable, DataTableResource } from 'angular-2-data-table';
-//import { cars } from './data';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { PlantService } from '../../services/plant/plant.service';
-import {  PlantClient,AllPlantList } from '../../models/plant/plant';
+import {  PlantClient } from '../../models/plant/plant';
+import { TooltipConfig } from 'ngx-bootstrap/tooltip';
+
+export function getAlertConfig(): TooltipConfig {
+  return Object.assign(new TooltipConfig(), {placement: 'right', container: 'body'});
+}
 
 @Component({
   selector: 'app-client-list-plant',
   templateUrl: './client-list-plant.component.html',
-  styleUrls: [
-      './client-list-plant.component.css'
-]
+  styleUrls: ['./client-list-plant.component.css'],
+  providers: [{provide: TooltipConfig, useFactory: getAlertConfig}]
+  
+ // viewProviders: [TooltipComponent]  
 })
+
 export class ClientListPlantComponent {
-  tool_tip;
-  cars = [];
-  ListCount = 0;
-  plantsListFull = [];
-  plantsListResource = new DataTableResource(PlantasCliente);  
+    // @ViewChild('myTable') table: any;
+    //  @ViewChild('hdrTpl') hdrTpl: TemplateRef<any>;
+    _tooltip=[];
+    _plantCode: string ="";
+    //@Output() _tooltipOut = new EventEmitter<string>();
+
+    rows = [];
+    selected = [];
+    _PlantClient= [];
+    
  
-  @ViewChild(DataTable) ClientPlantTable: DataTable;
+    constructor(private _plantservice : PlantService) {
+      this.fetch((data) => {
+        this.rows = data;
+      });
+    }
 
-  constructor() {
-      this.rowColors = this.rowColors.bind(this);
-      this.plantsListResource.count().then(count => this.ListCount = count);
-      PlantService.prototype.getPlants().then(plants=> this.plantsListFull = plants);
-  }
+  
+    fetch(cb) {
+        this._plantservice.getPlantsClient()
+        .then(data=> { 
+            cb(data);
+        });       
+    }
+  
+    onSelect({ selected }) {
+      console.log('Select Event', selected, this.selected);
+  
+      this.selected.splice(0, this.selected.length);
+      this.selected.push(...selected);
+    }
+  
+    
+    onActivate(event) {       
+     // this._tooltip = event.row;
+      // this._plantCode = `      
+      // <h2>Responsive Table with Bootstrap</h2>
+      
+      // <div class="container">
+      //   <div class="row">
+      //     <div class="col-xs-12">
+      //       <div class="table-responsive">
+      //         <table summary="This table shows how to create responsive tables using Bootstrap's default functionality" class="table table-bordered table-hover">
+      //           <caption class="text-center">An example of a responsive table based on <a href="https://getbootstrap.com/css/#tables-responsive" target="_blank">Bootstrap</a>:</caption>
+      //           <thead>
+      //             <tr>
+      //               <th>Country</th>
+      //               <th>Languages</th>
+      //               <th>Population</th>
+      //               <th>Median Age</th>
+      //               <th>Area (Km²)</th>
+      //             </tr>
+      //           </thead>
+      //           <tbody>
+      //             <tr>
+      //               <td>Argentina</td>
+      //               <td>Spanish (official), English, Italian, German, French</td>
+      //               <td>41,803,125</td>
+      //               <td>31.3</td>
+      //               <td>2,780,387</td>
+      //             </tr>
+      //             <tr>
+      //               <td>Australia</td>
+      //               <td>English 79%, native and other languages</td>
+      //               <td>23,630,169</td>
+      //               <td>37.3</td>
+      //               <td>7,739,983</td>
+      //             </tr>
+      //             <tr>
+      //               <td>Greece</td>
+      //               <td>Greek 99% (official), English, French</td>
+      //               <td>11,128,404</td>
+      //               <td>43.2</td>
+      //               <td>131,956</td>
+      //             </tr>
+      //             <tr>
+      //               <td>Luxembourg</td>
+      //               <td>Luxermbourgish (national) French, German (both administrative)</td>
+      //               <td>536,761</td>
+      //               <td>39.1</td>
+      //               <td>2,586</td>
+      //             </tr>
+      //             <tr>
+      //               <td>Russia</td>
+      //               <td>Russian, others</td>
+      //               <td>142,467,651</td>
+      //               <td>38.4</td>
+      //               <td>17,076,310</td>
+      //             </tr>
+      //             <tr>
+      //               <td>Sweden</td>
+      //               <td>Swedish, small Sami- and Finnish-speaking minorities</td>
+      //               <td>9,631,261</td>
+      //               <td>41.1</td>
+      //               <td>449,954</td>
+      //             </tr>
+      //           </tbody>
+      //           <tfoot>
+      //             <tr>
+      //               <td colspan="5" class="text-center">Data retrieved from <a href="http://www.infoplease.com/ipa/A0855611.html" target="_blank">infoplease</a> and <a href="http://www.worldometers.info/world-population/population-by-country/" target="_blank">worldometers</a>.</td>
+      //             </tr>
+      //           </tfoot>
+      //         </table>
+      //       </div><!--end of .table-responsive-->
+      //     </div>
+      //   </div>
+      // </div>
+      
+      // <p class="p">Demo by George Martsoukos. <a href="http://www.sitepoint.com/responsive-data-tables-comprehensive-list-solutions" target="_blank">See article</a>.</p>
+      
+        
+      // `;
+ 
+      this._plantCode = `
+      <strong>hola</strong>
+      `;
 
-  reloadCars(params) {
-      console.log("accionando reload");
-      this.plantsListResource.query(params).then(clPlant => this.plantsListFull = clPlant);
-  }
+    }
+  
+    // add() {
+    //   this.selected.push(this.rows[1], this.rows[3]);
+    // }
+  
+    // update() {
+    //   this.selected = [ this.rows[1], this.rows[3] ];
+    // }
+  
+    // remove() {
+    //   this.selected = [];
+    // }
 
-  carClicked(car) {
-      alert(car.model);
-  }
-  CickRow(plantsListFull){
-    var data  = plantsListFull.row.item
-    console.log(data.PlantCode);
-  }
-  yearLimit = 1999;
+    getRowClass(row) {
+      //console.log(row);
+      return {
+        'age-is-ten': 1 === 1
+      };
+    } 
+    
+    getCellClass({ row, column, value }): any {
+      return {
+        'is-female': 'female' === 'female'
+      };
+    }
 
-  rowColors(car) {
-      //if (car.year >= this.yearLimit) return 'rgb(255, 255, 197)';
-  }
-
-  rowTooltip(item) { 
-    return  ` Plant code ` + item.Nombre + `
-      Name: ` + item.Nombre + `
-      Distance: ` + item.Distancia + `
-      Duration: ` + item.Duracion; 
 }
-
-
-}
-
-export var PlantasCliente = [
-    {Selected: false, PlantCode: 'DF43', Distancia: '0.0',Nombre: 'MX-PLANT-CASR',  Duracion: '00:20', CTP:'Camion' },
-    {Selected: true,  PlantCode: 'DF47', Distancia: '0.0',Nombre: 'MX-PLANT-CSCY',  Duracion: '00:25', CTP:'Camion' },
-    {Selected: false, PlantCode: 'DF49', Distancia: '0.0',Nombre: 'MX-PLANT-VSVK',  Duracion: '00:30', CTP:'Camion' },
-    {Selected: false, PlantCode: 'DF47', Distancia: '0.0',Nombre: 'MX-PLANT-EQQE',  Duracion: '00:10', CTP:'Camion' },
-    {Selected: false, PlantCode: 'DF41', Distancia: '0.0',Nombre: 'MX-PLANT-THHR',  Duracion: '00:17', CTP:'Camion' },
-    {Selected: false, PlantCode: 'DF42', Distancia: '0.0',Nombre: 'MX-PLANT-HRTH',  Duracion: '00:13', CTP:'Camion' },
-    {Selected: false, PlantCode: 'DF40', Distancia: '0.0',Nombre: 'MX-PLANT-NFNT',  Duracion: '00:21', CTP:'Camion' },
-    {Selected: false, PlantCode: 'DF12', Distancia: '0.0',Nombre: 'MX-PLANT-NTFN',  Duracion: '00:40', CTP:'Camion' }
-];
-

@@ -1,5 +1,4 @@
 export interface PlantClient {
-    Selected: boolean;
     PlantCode: string;
     Nombre: string;
     Duracion: string;
@@ -10,4 +9,12 @@ export interface PlantClient {
 export interface AllPlantList{
     PlantCode: string;
     Nombre: string;
+}
+
+export interface CommentsTest{
+    postId: string;
+    id: string;
+    name: string;
+    email: string;
+    body:string;
 }
