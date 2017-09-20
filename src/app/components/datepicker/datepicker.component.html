@@ -1,12 +1,20 @@
-<!-- <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <input class="form-control" placeholder="Datepicker" bsDatepicker [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <input class="form-control" placeholder="Daterangepicker" bsDaterangepicker [minDate]="minDate" [maxDate]="maxDate" #dpr="bsDaterangepicker">
-      </div>
-    </div>
-  </div> -->
+<div class="col-sm-12 topLine"  >
+    <!-- <pre class="alert alert-info">Time is: {{mytime}}</pre> -->
+  <div class="col-sm-4">
+      <label style="vertical-align: -17px;">Delivery date </label>
+      <input style="left: 0px !important;" [(ngModel)]="mytime" class="form-control" placeholder="Datepicker" bsDatepicker [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker">
+  </div>
+  <div class="col-sm-6">
+      <!-- <label style="vertical-align: -9px;">Time </label> -->
+      <timepicker [(ngModel)]="mytime"></timepicker>
+      
+  </div>
+  <div class="col-sm-2">
+      <button type="button" style="vertical-align: -48px;" class="btn btn-info">Ok</button>
+  </div>
+  
+
+</div>
+
+
+

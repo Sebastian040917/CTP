@@ -12,6 +12,7 @@ body{
     min-height: 400px;
     /* width: 50%; */
     margin-top:10px;
+    
 }
 .card-header{
     color: white;
@@ -35,4 +36,9 @@ body{
 .tooltip-inner > div .container {
     /* background: bisque; */
     width: 100%;
+}
+
+/*DATE PICKER*/
+.bs-datepicker{
+    left: 20% !important;
 }

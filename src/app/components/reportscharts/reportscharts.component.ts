@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input   } from '@angular/core';
 import { Http } from "@angular/http";
 
 @Component({
@@ -9,11 +9,17 @@ import { Http } from "@angular/http";
   ]
 })
 export class ReportschartsComponent {
+  @Input('parentData') incomingData: string;
+  public PlantSelected:string;
+  public _PlantaSeleccionada: string="";
 
-  dame(){
-    console.log("presente");
+  damePlantaSeleccionada(event){
+    this.PlantSelected = event;
+    console.log("ea=>" + event);
+    //console.log(event);
   }
   constructor(private http: Http) {
+    this.PlantSelected="UNO DOS TRES";
     //http.get('https://cdn.rawgit.com/gevgeny/angular2-highcharts/99c6324d/examples/aapl.json')
     //.subscribe(res => {
     this.Master = {

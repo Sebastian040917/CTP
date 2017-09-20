@@ -9,15 +9,18 @@ export class DatepickerComponent implements OnInit {
 
   minDate: Date;
   maxDate: Date;
+  public mytime: Date = new Date(); //tiempo
   
   constructor() { 
     this.minDate = new Date();
     this.maxDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
+    this.minDate.setDate(this.minDate.getDate());
+    this.maxDate.setDate(this.maxDate.getDate() + 365);
   }
 
   ngOnInit() {
   }
+
+
 
 }
