@@ -1,5 +1,6 @@
-import { Component,Input   } from '@angular/core';
+import { Component,Input  } from '@angular/core';
 import { Http } from "@angular/http";
+import { PlantService } from '../../services/plant/plant.service';
 
 @Component({
   selector: 'app-Full-reportscharts',
@@ -12,38 +13,62 @@ export class ReportschartsComponent {
   @Input('parentData') incomingData: string;
   public PlantSelected:string;
   public _PlantaSeleccionada: string="";
+  HoraSeleccionada:string;
+  
 
-  damePlantaSeleccionada(event){
-    this.PlantSelected = event;
-    console.log("ea=>" + event);
-    //console.log(event);
-  }
-  constructor(private http: Http) {
-    this.PlantSelected="UNO DOS TRES";
+
+  constructor(private http: Http, private _plantService: PlantService ) {
+   
+
+    this.PlantSelected="";
     //http.get('https://cdn.rawgit.com/gevgeny/angular2-highcharts/99c6324d/examples/aapl.json')
     //.subscribe(res => {
     this.Master = {
-      title: { text: null },
+       title: { text: null },
+      
+      // subtitle: {
+      //   text: 'AAPL stock price by minute'
+      // },
       xAxis: {
         type: 'datetime',
         tickPixelInterval: 100,
         crosshair: true,
+        labels: {
+          style: {
+              color: '#0000A0',
+              cursor: 'pointer',
+              fontSize:'9px'
+          },          
+        //     useHTML: true,
+        //     formatter: function() {
+        //         return '<a href="javascript:console.log(this)">'+
+        //             this.value +'</a>';
+            
+        // }     
+
+      },
+     
        
       },
+      // navigator: {
+      //   enabled: true,
+      //   height: 10
+      // },
       yAxis: {
         title: {
           text: null
         },
-        tickPixelInterval: 10,
-        event:{
-          Click:function(event){
-            console.log(event);
-          }
-        }
-        //alternateGridColor: '#FDFFD5',
+        tickPixelInterval: 2,
+        labels: {
+          style: {
+              // color: 'red',
+              fontSize:'9px'
+          }},
+      alternateGridColor: '#FDFFD5',
       },
       tooltip: {
         shared: true,
+         style: {fontSize: '9px'} 
       },
       legend: {
         enabled: false
@@ -55,8 +80,8 @@ export class ReportschartsComponent {
         // borderColor: '#EBBA95',
         // borderWidth: 2,
         // type: 'spline',
-        width: 750,
-        height: 250
+        width: 655,
+        height: 130
       },
 
       credits: {
@@ -118,13 +143,23 @@ export class ReportschartsComponent {
       title: { text: null },
       xAxis: {
         type: 'datetime',
+        labels: {
+          style: {
+              // color: 'red',
+              fontSize:'9px'
+          }},
         tickPixelInterval: 100
       },
       yAxis: {
         title: {
           text: null
         },
-        tickPixelInterval: 21
+        labels: {
+          style: {
+              // color: 'red',
+              fontSize:'9px'
+          }},
+        tickPixelInterval: 1
       },
       legend: {
         enabled: false
@@ -133,8 +168,8 @@ export class ReportschartsComponent {
         enabled: false
       },
       chart: {
-        width: 750,
-        height: 100
+        width: 655,
+        height: 64
       },
 
       credits: {
@@ -156,6 +191,7 @@ export class ReportschartsComponent {
   }
   Master: Object;
   Detail: Object;
+ 
 }
 
 

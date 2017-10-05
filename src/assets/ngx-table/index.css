@@ -35,6 +35,10 @@
     /**
      * Footer Styles
      */ }
+     .datatable-body{
+      width: 100%;
+      height: 102px;
+     }
     .ngx-datatable [hidden] {
       display: none !important; }
     .ngx-datatable *, .ngx-datatable *:before, .ngx-datatable *:after {

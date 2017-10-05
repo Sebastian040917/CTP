@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PlantService } from "./services/plant/plant.service";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import 'rxjs/add/operator/map';
+import {ToastyService, ToastyConfig} from 'ng2-toasty';
 
 @Component({
   selector: 'app-root',
@@ -8,81 +9,73 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'MEP & CTP';
-  public query = '';
-  public filteredList = [];
+  placeholderPlant ='Buscar mas plantas';
+  tituloBotonAgregar="Agregar";
+  tituloMasPlantas="Más plantas";
 
+  /** TABLE HEADERS*/
 
+  TCH_PlantCode="Center";
+  TCH_PlantDescription="Name plant";
+  TCH_PlantDuration="Duration";
+  TCH_PlantDistance="Distance";
+  TCH_PlantCtp="CTP";
+
+  constructor(private _plantservice: PlantService,private toastyService:ToastyService, private toastyConfig: ToastyConfig) {
+    this.toastyConfig.theme = 'bootstrap';
+   
+    this.fetch((data) => {
+      this.rows = data;
+    });
+  }
+
+//   addToast() {
+//     this.toastyService.error('Hi there lorem ipsum dolor et natsum oleik na grut');
+// }
 
   /********** TYPEHEAD ****** */
-
+  SelectedPlantTypeHead = "";
+  PlantDescriptionTypeHead ="";
   ngOnInit() {
-    this._plantservice.getAllPlants().then(pl => this.LstPlants = pl);
+    //this._plantservice.getAllPlants('MX').subscribe(pl => this.LstPlants = pl);
+  }
+  filterItemOnSelect(item){
+     this.SelectedPlantTypeHead = item.PlantCode;
+     this.PlantDescriptionTypeHead = item.PlantDesc;
+  }
+   ////////////////////BUTTONS///////////////////////
+   limit=5;
+   AddPlantToClient() {
+    if(this.SelectedPlantTypeHead){
+      this._plantservice.searchAndAddPlantClient(this.SelectedPlantTypeHead).subscribe(res=>{
+        console.log(this.rows);
+        this.rows.unshift(res);
+      });
+    }else{
+      this.toastyService.warning('No se ha realizado ninguna busqueda');
+    }    
   }
 
-  stateForm: FormGroup;
-  showDropDown = false;
-
-  initForm(): FormGroup {
-    return this.stateForm = this.fb.group({
-      search: [null]
-    })
+  SearchMorePlants() {
+    this.limit=100;
+    this.toastyService.success('Plantas agregadas al grid.');
   }
-
-  selectValue(value) {
-    this.stateForm.patchValue({ "search": value.PlantCode + " " + value.Nombre });
-    this.SelectedPlant = value.PlantCode;
-
-  }
-  closeDropDown() {
-    this.showDropDown = false;
-  }
-
-  openDropDown() {
-    this.showDropDown = true;
-  }
-
-  getSearchValue() {
-    return this.stateForm.value.search;
-  }
-
-  filter() {
-    if (this.query !== "") {
-      this.filteredList = this.LstPlants.filter(function (el) {
-        var Texto = (el.PlantCode + el.Nombre);
-        return Texto.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-
-      });//.bind(this);
-    } else {
-      this.filteredList = [];
-    }
-  }
-
-
 
   ////////////////////TABLA PLANTAS ///////////////////////
   LstPlants = [];
-  SelectedPlant = "";
+   
   selected = [];
   sampleData : string ="some parent Data";
-
   rows = []; //TABLE
+
   fetch(cb) { 
     this._plantservice.getPlantsClient()
     .then(data=> { 
         cb(data);
     });       
-}
-
-  constructor(private _plantservice: PlantService, private fb: FormBuilder) {
-    this.initForm();
-    //this.elementRef = elementRef;    
-
-    this.fetch((data) => {
-      this.rows = data;
-    });
   }
-  
 
   onSelect({ selected }) {
     this.sampleData = selected[0].PlantCode;
@@ -92,29 +85,23 @@ export class AppComponent {
     //console.log(event)
   }
 
-  getRowClass(row) {
-    //console.log(row);
-    return {
-      'age-is-ten': 1 === 1
-    };
-  }
+  // getRowClass(row) {  
+  //   return {
+  //     'colorTableClient': row.PlantCode==='DF43'
+  //   };  
+  // }
 
-  getCellClass({ row, column, value }): any {
-    return {
-      'is-female': 'female' === 'female'
-    };
-  }
+  
 
+  // getCellClass({ row, column, value }): any {
+  //   return {
+  //     'is-female': 'female' === 'female'
+  //   };
+  // }
 
-//BUTTONS
-  AddPlantToClient() {
-    alert("Add this plant into grid of client" + this.SelectedPlant);
-  }
+ 
 
-  SearchMorePlants() {
-    alert("Search more plants");
-  }
-
+ 
 
 
 

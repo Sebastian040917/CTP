@@ -1,104 +1,88 @@
-<div class="container-fluid row">
-<div class="clientplants" class="col-lg-5 ">
-    <div class="card">
-        <div class="card-header"> MEP & CTP </div>
-        <div class="card-block ">
-                <form class="form-inline ">
-                        <i class='fa fa-search icon-pos color-purple  mb-2 mr-sm-1'>Planta</i>
-                        <div class="width-half" id="PlantasSeleccion">
-                        <form [formGroup]='stateForm' novalidate class="col-sm-12">
-                                <input id='search' 
-                                formControlName='search' 
-                                (click)=' openDropDown() ' 
-                                class="form-control mb-2 mr-sm-1 mb-sm-0" 
-                                type='text'
-                                style="font-size: inherit;">
-                        </form>
-                        <div clickOutside (clickOutside)="closeDropDown()">
-                                <div *ngIf='showDropDown' class='search-drop-down '>
-                                <div (click)='selectValue(s)' *ngFor="let s of LstPlants | searchFilter: getSearchValue()">
-                                        <a [innerHTML]=" s.PlantCode + s.Nombre | letterBold: getSearchValue()">
-                                        <span>{{s.PlantCode}}</span> 
-                                        <span style="padding-left: 100px;">{{ s.Nombre }}</span>
-                                        </a>
-                                        <hr>
+<div class="container-fluid row myContainer">
+                <!-- <app-alerts [heredado]="datos()"></app-alerts> -->
+        <ng2-toasty [position]="'top-right'"></ng2-toasty>
+        <div class="col-lg-4 clientplants bitPadding">
+                <div class="card" >
+                        <div class="card-header">{{ title }} </div>
+                        <div class="card-block " style="display: flex;padding-top: 5px;padding-bottom: 0px; ">
+
+                                <div class="inner-addon ">
+                                        <i class="fa fa-search intobox"></i>
+                                        <input [(ngModel)]="PlantDescriptionTypeHead" [typeahead]="LstPlants" typeaheadOptionsLimit="7" (typeaheadOnSelect)="filterItemOnSelect($event.item)"
+                                                typeaheadOptionField="PlantDesc" placeholder={{placeholderPlant}} class="search">
+
+                                        <button (click)="AddPlantToClient()" class="btn btn-primary btn-xs handlerpointer" tooltip="Agregar la planta buscada al grid">
+                                                        <i class="fa fa-plus-circle"  aria-hidden="true"></i>
+                                                </button>
+                                        <button (click)="SearchMorePlants()" class="btn btn-primary btn-xs handlerpointer" tooltip="Mostrar más plantas en el grid inferior">
+                                                                <i class="fa fa-sort-amount-asc "  aria-hidden="true"></i>
+                                                        </button>
+
+
+
                                 </div>
+
+
+
+                                <!--        <label class="custom-control">
+
+                                                
+                                 <button (click)="AddPlantToClient()" class="btn btn-primary btn-xs" style="margin-right: 2px;">{{tituloBotonAgregar}}</button>            
+                                <button (click)="SearchMorePlants()" class="btn btn-primary btn-xs">Mas plantas</button>         
+                                </label>    -->
+                        </div>
+                        <div>
+                                <!-- <ng-template #popTemplate><div [innerHtml]="_plantCode" ngx-datatable-cell-template></div> </ng-template>  -->
+                                <div class="clientPlantComponent">
+                                        <ngx-datatable class='material' [rows]="rows" [rowHeight]="18" [columnMode]="'force'" [headerHeight]="25" [footerHeight]="0"
+                                                [limit]="limit" [selected]="selected" [selectionType]="'simple'" (activate)="onActivate($event)"
+                                                (select)='onSelect($event)'>
+                                                <ngx-datatable-column [width]="1" [sortable]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true"
+                                                        [checkboxable]="true">
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column [sortable]="false" name="{{TCH_PlantCode}}" prop="{{TCH_PlantCode}}" [width]="3">
+                                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                                                <span>{{row.PlantCode}}</span>
+                                                        </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column [sortable]="false" name="{{TCH_PlantDescription}}" prop="{{TCH_PlantDescription}}" [width]="65">
+                                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                                                <span>{{row.PlantDesc}}</span>
+                                                        </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column [sortable]="false" name="{{TCH_PlantDuration}}" prop="{{TCH_PlantDuration}}" [width]="5">
+                                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                                                <span>{{row.Duration}}</span>
+                                                        </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column [sortable]="false" name="{{TCH_PlantDistance}}" prop="{{TCH_PlantDistance}}" [width]="8">
+                                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                                                <span>{{row.Distance}}</span>
+                                                        </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-column [sortable]="false" name="CTP" prop="CTP" [width]="5">
+                                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                                                <span style="text-align: center">
+                                                                                <i class="{{row.Ctp}} fa-lg" aria-hidden="true"></i>
+                                                                </span>
+                                                        </ng-template>
+                                                </ngx-datatable-column>
+                                                <ngx-datatable-footer>
+                                                        <datatable-pager>
+                                                        </datatable-pager>
+                                                </ngx-datatable-footer>
+
+                                        </ngx-datatable>
                                 </div>
                         </div>
-                        </div>
-                        <label class="custom-control custom-checkbox mb-2 mr-sm-4 mb-sm-0 col-sm-2">
-                        <button (click)="AddPlantToClient()" class="btn btn-primary btn-sm">Agregar</button>            
-                        </label>
-                        <label class="custom-control custom-checkbox mb-2 mr-sm-4 mb-sm-0 col-sm-2">
-                        <button (click)="SearchMorePlants()" class="btn btn-primary btn-sm">Mas plantas</button>            
-                        </label>
-                </form>
-        </div>
-        <div class="clientPlantComponent ">
-                <!-- <ng-template #popTemplate><div [innerHtml]="_plantCode" ngx-datatable-cell-template></div> </ng-template>  -->
-                <div style='width:100%; height: 50%;'>
-                <ngx-datatable 
-                class='material' 
-                [rows]="rows" 
-                [rowClass]="getRowClass" 
-                [columnMode]="'force'" 
-                [headerHeight]="40" 
-                [footerHeight]="40"
-                [rowHeight]="'auto'" 
-                [limit]="5" 
-                [selected]="selected" 
-                [selectionType]="'simple'" 
-                (activate)="onActivate($event)"
-                (select)='onSelect($event)' 
-                [sorts]="[
-                {prop: 'PlantCode', dir: 'desc'},
-                {prop: 'Nombre', dir: 'desc'},
-                {prop: 'Duracion', dir: 'desc'}]">
-                <ngx-datatable-column 
-                [width]="10" 
-                [sortable]="true" 
-                [canAutoResize]="false" 
-                [draggable]="true" 
-                [resizeable]="false" 
-                [headerCheckboxable]="true"
-                [checkboxable]="true">
-                </ngx-datatable-column>
-                <ngx-datatable-column name="PlantCode" prop="PlantCode" [cellClass]="getCellClass" [width]="5">
-                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                        <span>{{row.PlantCode}}</span>
-                        </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Nombre" prop="Nombre" [width]="20">
-                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                        <span>{{row.Nombre}}</span>
-                        </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Duracion" prop="Duracion" [width]="20">
-                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                                <span>{{row.Duracion}}</span>
-                        </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="CTP" prop="CTP" [width]="20">
-                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                                <span>{{row.CTP}}</span>
-                        </ng-template>
-                </ngx-datatable-column>
-                </ngx-datatable>
+                        <hr>
+                        <app-datepicker></app-datepicker>
                 </div>
         </div>
-        <app-datepicker></app-datepicker>
+        <div class="reportChart" class="col-lg-8 bitPadding">
+                <app-Full-reportscharts [parentData]="sampleData"></app-Full-reportscharts>
+        </div>
+        <div class="ScheduleStyle" class="col-lg-12 bitPadding">
+                <app-schedule></app-schedule>
         </div>
 </div>
-<div class="clientplants" class="col-lg-7 "> 
-   <app-Full-reportscharts [parentData]="sampleData"></app-Full-reportscharts>
- </div>
-
-
- <div class="clientplants" class="col-lg-12">
-    <app-schedule ></app-schedule>
- </div>
-
- 
-
-</div>
-

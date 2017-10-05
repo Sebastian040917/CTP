@@ -1,122 +1,792 @@
-import { Component, OnInit } from '@angular/core';
-import { TooltipConfig } from 'ngx-bootstrap/tooltip';
+import { Component, Input, Renderer2 } from '@angular/core';
 import { PlantService } from "../../services/plant/plant.service";
-import { TooltipComponent }  from '../tooltip/tooltip.component'
-
-export function getAlertConfig(): TooltipConfig {
-  return Object.assign(new TooltipConfig(), {placement: 'right', container: 'body'});
-}
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css'],
-  providers: [{provide: TooltipConfig, useFactory: getAlertConfig}, TooltipComponent ]
+  styleUrls: ['./schedule.component.css']
 })
+
+
 export class ScheduleComponent {
-  rows = [];
-  selected = [];
-  _plantCode="";
-  textoEnHTML="";
-  constructor(private _plantservice : PlantService,private _tooltipComponent: TooltipComponent) {
-    this.fetch((data) => {
-      this.rows = data;
-    });
-   }
+  popiedad1:string;
+  public html:string = `
+  <strong>Never trust not sanitized HTML!!!</strong>`;
 
-   fetch(cb) {
-    this._plantservice.getPlantsClient()
-    .then(data=> { 
-        cb(data);
-    });       
-}
+  constructor(private renderer: Renderer2) {
+    this.ListenHour();
+  }
 
-onSelect({ selected }) {
-  console.log('Select Event', selected, this.selected);
-
-  this.selected.splice(0, this.selected.length);
-  this.selected.push(...selected);
-}
-
-onActivate(event) {  
-  this.textoEnHTML='<strong>texto prueba</strong> test';
-    this._tooltipComponent.doyclick(this.textoEnHTML);
-
-  this._plantCode = `      
-  <h2>Responsive Table with Bootstrap</h2>
-  
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="table-responsive">
-          <table summary="This table shows how to create responsive tables using Bootstrap's default functionality" class="table table-bordered table-hover">
-            <caption class="text-center">An example of a responsive table based on <a href="https://getbootstrap.com/css/#tables-responsive" target="_blank">Bootstrap</a>:</caption>
-            <thead>
-              <tr>
-                <th>Country</th>
-                <th>Languages</th>
-                <th>Population</th>
-                <th>Median Age</th>
-                <th>Area (Km²)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Argentina</td>
-                <td>Spanish (official), English, Italian, German, French</td>
-                <td>41,803,125</td>
-                <td>31.3</td>
-                <td>2,780,387</td>
-              </tr>
-              <tr>
-                <td>Australia</td>
-                <td>English 79%, native and other languages</td>
-                <td>23,630,169</td>
-                <td>37.3</td>
-                <td>7,739,983</td>
-              </tr>
-              <tr>
-                <td>Greece</td>
-                <td>Greek 99% (official), English, French</td>
-                <td>11,128,404</td>
-                <td>43.2</td>
-                <td>131,956</td>
-              </tr>
-              <tr>
-                <td>Luxembourg</td>
-                <td>Luxermbourgish (national) French, German (both administrative)</td>
-                <td>536,761</td>
-                <td>39.1</td>
-                <td>2,586</td>
-              </tr>
-              <tr>
-                <td>Russia</td>
-                <td>Russian, others</td>
-                <td>142,467,651</td>
-                <td>38.4</td>
-                <td>17,076,310</td>
-              </tr>
-              <tr>
-                <td>Sweden</td>
-                <td>Swedish, small Sami- and Finnish-speaking minorities</td>
-                <td>9,631,261</td>
-                <td>41.1</td>
-                <td>449,954</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="5" class="text-center">Data retrieved from <a href="http://www.infoplease.com/ipa/A0855611.html" target="_blank">infoplease</a> and <a href="http://www.worldometers.info/world-population/population-by-country/" target="_blank">worldometers</a>.</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div><!--end of .table-responsive-->
-      </div>
-    </div>
-  </div>`
-}
+  ListenHour() {
+    let global = this.renderer.listen('document', 'click', (evt) => {
+      if (evt.target.innerHTML.length == 5 && evt.target.nodeName == "tspan") {
+        console.log(evt.target.innerHTML);
+      }
+    })
+  }
 
 
+  listTables: Array<string> = ['A', 'B', 'C'];
+  //  datosX=models2;
+  dat = models;
+  numerator=0;
 
+  configTables = _configTables;
+  myMethod(event){
+    // console.log(event)
+    this.html = `
+    <table class="table-sm" style="text-align: left; margin-left:300px;">
+    <tbody>
+      <tr>
+        <td>Order Number</td>
+        <td colspan="2">8000516480</td>
+      </tr>
+      <tr>
+        <td>Load</td>
+        <td colspan="2">80005</td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td colspan="2">Ok</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td colspan="2">0516480</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>Date: 19/02/2017</td>
+        <td>Time: 14:00</td>
+      </tr>
+      <tr>
+        <td>Load</td>
+        <td>Date: 19/02/2017</td>
+        <td>Time: 14:00</td>
+      </tr>
+      <tr>
+        <td>Requirement</td>
+        <td>Date: 19/02/2017</td>
+        <td>Time: 14:00</td>
+      </tr>
+      <tr>
+        <td>Optimal plant</td>
+        <td colspan="2">F12</td>
+      </tr>
+      <tr>
+        <td>Customer</td>
+        <td colspan="2">Washington 2000 Oriente Esq. Diagonal Asarco, Obrera, Centro, 64010 Monterrey, NL</td>
+      </tr>
+      <tr>
+        <td>Job Site</td>
+        <td colspan="2">Washington 2000 Oriente Esq. Diagonal Asarco, Obrera, Centro, 64010 Monterrey, NL</td>
+      </tr>    
+    </tbody>
+  </table>    
+    `
+  }
 
 }
+
+const _configTables =
+[
+  {
+    type: "A",
+    placement:"top"
+  },
+  {
+    type: "B",
+    placement:"top"
+  },
+  {
+    type: "C",
+    placement:"left"
+  },
+]
+
+const models =
+  [
+    {
+      type: "A",
+      RangeHourTitle: "de 1 a 2",
+      schedule: [
+        {
+          listName: "1:00 PM",          
+          items: [
+            {
+            "order": "8000516480",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          },          
+          ]
+          
+        },
+        {
+          listName: "2:00 PM",
+           items: [
+            {
+            "order": "8000516481",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "3:00 PM",
+           items: [
+            {
+            "order": "8000516482",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "4:00 PM"
+          , items: [
+            {
+            "order": "8000516483",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "5:00 PM"
+          , items: [
+            {
+            "order": "8000516484",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "6:00 PM"
+          , items: [
+            {
+            "order": "8000516485",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "7:00 PM"
+          , items: [
+            {
+            "order": "8000516486",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          }
+          ]
+        },
+        {
+          listName: "8:00 PM"
+          , items: [
+            {
+            "order": "8000516487",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "9:00 PM"
+          , items: [
+            {
+            "order": "8000516488",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          }
+          ]
+        },
+        {
+          listName: "10:00 PM"
+          , items: [
+            {
+            "order": "8000516489",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        }
+        
+      ]
+    },
+    {
+      type: "B",
+      RangeHourTitle: "de 2 a 3",
+      schedule: [
+        {
+          listName: "1:00 PM",          
+          items: [
+            {
+            "order": "8000516480",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          },          
+          ]
+          
+        },
+        {
+          listName: "2:00 PM",
+           items: [
+            {
+            "order": "8000516481",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "3:00 PM",
+           items: [
+            {
+            "order": "8000516482",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "4:00 PM"
+          , items: [
+            {
+            "order": "8000516483",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "5:00 PM"
+          , items: [
+            {
+            "order": "8000516484",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "6:00 PM"
+          , items: [
+            {
+            "order": "8000516485",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "7:00 PM"
+          , items: [
+            {
+            "order": "8000516486",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          }
+          ]
+        },
+        {
+          listName: "8:00 PM"
+          , items: [
+            {
+            "order": "8000516487",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "9:00 PM"
+          , items: [
+            {
+            "order": "8000516488",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          }
+          ]
+        },
+        {
+          listName: "10:00 PM"
+          , items: [
+            {
+            "order": "8000516489",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        }
+        
+      ]
+    },
+    {
+      type: "C",
+      RangeHourTitle: "de 3 a 4",
+      schedule: [
+        {
+          listName: "1:00 PM",          
+          items: [
+            {
+            "order": "8000516480",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          },          
+          ]
+          
+        },
+        {
+          listName: "2:00 PM",
+           items: [
+            {
+            "order": "8000516481",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "3:00 PM",
+           items: [
+            {
+            "order": "8000516482",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "4:00 PM"
+          , items: [
+            {
+            "order": "8000516483",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "5:00 PM"
+          , items: [
+            {
+            "order": "8000516484",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "6:00 PM"
+          , items: [
+            {
+            "order": "8000516485",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "7:00 PM"
+          , items: [
+            {
+            "order": "8000516486",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          }
+          ]
+        },
+        {
+          listName: "8:00 PM"
+          , items: [
+            {
+            "order": "8000516487",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        },
+        {
+          listName: "9:00 PM"
+          , items: [
+            {
+            "order": "8000516488",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"nuevo",
+            "drag":true
+          }
+          ]
+        },
+        {
+          listName: "10:00 PM"
+          , items: [
+            {
+            "order": "8000516489",
+            "loadNumber": "001316",
+            "status": "NA",
+            "product": "1-250-2C-28-12-0-1-001",
+            "vol":"7.000",
+            "site":"UDEM SANTA CATARINA",
+            "tt":"00:00",
+            "delivery": "2012-04-23T18:25:43.511Z",
+            "load": "2012-04-23T18:25:43.511Z",
+            "requirement": "2012-04-23T18:25:43.511Z",
+            "optimalPlant": "DF12",
+            "customer": "Number/Description: 56871548 - St Hugitamoto San test HSB",
+            "jobSite": "207/5th aveneu thoson: 56871548 - Lorem ipsum dolor",
+            "statusRow":"fijo",
+            "drag":false
+          }
+          ]
+        }
+        
+      ]
+    }
+  ];
