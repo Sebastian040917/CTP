@@ -1,0 +1,103 @@
+<ng-template #content>
+  <i (mouseover)="myMethod(item)" class="fa fa-info-circle toolright" aria-hidden="true" [tooltip]="popTemplate" placement="top"
+    container="body">
+  </i>
+</ng-template>
+<ng-template #popTemplate>
+  <!-- <div [innerHtml]="html"></div> -->
+  <table class=" table-sm" style="text-align: left;">
+    <tbody>
+      <tr>
+        <td>Order Number</td>
+        <td colspan="2">8000516480</td>
+      </tr>
+      <tr>
+        <td>Load</td>
+        <td colspan="2">80005</td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td colspan="2">Ok</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td colspan="2">0516480</td>
+      </tr>
+      <tr>
+        <td>Delivery</td>
+        <td>Date: 19/02/2017</td>
+        <td>Time: 14:00</td>
+      </tr>
+      <tr>
+        <td>Load</td>
+        <td>Date: 19/02/2017</td>
+        <td>Time: 14:00</td>
+      </tr>
+      <tr>
+        <td>Requirement</td>
+        <td>Date: 19/02/2017</td>
+        <td>Time: 14:00</td>
+      </tr>
+      <tr>
+        <td>Optimal plant</td>
+        <td colspan="2">F12</td>
+      </tr>
+      <tr>
+        <td>Customer</td>
+        <td colspan="2">Washington 2000 Oriente Esq. Diagonal Asarco, Obrera, Centro, 64010 Monterrey, NL</td>
+      </tr>
+      <tr>
+        <td>Job Site</td>
+        <td colspan="2">Washington 2000 Oriente Esq. Diagonal Asarco, Obrera, Centro, 64010 Monterrey, NL</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
+<div class="card ">
+    <div class="card-header">
+       drag and drop       
+      </div> 
+  <div style="display: -webkit-inline-box; display: -ms-inline-flexbox; max-height: 234px;height: 234px;">
+    <div class="spanstyle col.sm-12" *ngFor="let config of configTables; let i= index;">
+      <div class="panel panel-info" *ngFor="let comp of dat | ForFilter: config.type;  let j= index;">
+        <div class="panel-heading principalHeaderTitle">{{comp.RangeHourTitle}}</div>
+        <div class="td-container"><span>Hr.</span></div>
+        <div class="colF" style="display: inline-table;width: 80%;text-align: center; color: rgba(0, 0, 0, 0.54)">
+         
+          <div class="td-container"><span>Order</span></div>
+          <div class="td-container"><span>Prod</span></div>
+          <div class="td-container"><span style="padding-left: 8px;">Vol.</span></div>
+          <div class="td-container"><span>Site</span></div>
+          <div class="td-container"><span>TT</span></div>
+        </div>
+        <div class="panel panel-warning col-sm-12" style="margin-bottom: 0px;display: flex;border-right-color: white;width: 100%;min-width: 16px;padding-left: 0px;padding-right: 0px;"
+          *ngFor="let Parent of comp.schedule; let k= index;">
+          <div class="panel-heading  hourheader">
+            <div class="colHour d-container">
+              {{Parent.listName}}
+            </div>
+          </div>
+          <div class="panel-body " style="padding: 0px;width: 90%;position: relative;">
+
+            <div class="contentItemMovible" dragula="schedule-rows" style="min-height:45px;">
+              <div style="display: inline-table;width: 100%;" *ngFor="let item of Parent.items; let l= index;" class="ItemMovible colF {{item.statusRow}} ">
+                <div class="td-container">
+                  ...{{ item.order | slice:-4}}
+                </div>
+                <div class="td-container">{{ item.product }} </div>
+                <div class="td-container"> {{ item.vol }} </div>
+                <div class="td-container"> {{ item.site }} </div>
+                <div (mouseover)="myMethod(item)" class="td-container toolright" aria-hidden="true" [tooltip]="popTemplate" placement="{{config.placement}}"> 0.00
+                  <span 
+                    container="body">?
+                </span>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <pre>{{ dat[i].schedule | json}}</pre> -->
+        </div>
+      </div>
+    </div>
+  </div>

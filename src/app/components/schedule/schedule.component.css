@@ -1,0 +1,99 @@
+.principalHeaderTitle{
+    text-align: center;
+}
+
+.spanstyle{
+    width: 33.33%;
+    display:inline-block;
+    vertical-align: top; 
+}
+
+
+.td-container{
+    display: inline-block;
+}
+.hourheader{
+    width: 50px;
+    padding: 1px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.contentItemMovible{
+    position: relative;
+    min-height: 16px;
+}
+
+
+
+.ItemMovible{
+    /* cursor: move !important; */
+    position: relative;
+    display: inline-block;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    min-width: 120px;
+    padding-bottom: 0px;
+    padding-top: 1px;
+    display: inline-table;
+    width: 100%;
+    cursor: pointer;
+    /* padding: 10px; */
+}
+
+.ItemMovible:hover{
+    background: rgba(42, 154, 214, 0.78);
+    color:white;
+    font-weight: 700;
+}
+.ItemMovible i{
+    cursor: pointer !important;
+}
+/* .ItemMovible i:hover{
+    color: #FF00AA; 
+    cursor:pointer;
+} */
+
+.fa fa-info-circle{
+    color: #09ac2e; 
+    font-size: larger; 
+    padding-right: 3px;
+}
+.colF div{
+    width: 15%;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 15%;
+    padding:4px
+}
+
+
+/* .nuevo{
+    background: #FF8400;
+    color:white;    
+} */
+
+
+.nuevo i {
+    color: #FF8400;
+    /* color:white;   */
+}
+
+.fijo i{
+    /* background: rgb(243, 118, 118); */
+    color:rgb(124, 181, 236)
+    /* cursor:no-drop; */
+    
+}
+
+.fijo:hover{
+    cursor: no-drop !important;
+}
+
+/* .fijo:hover{
+    cursor: no-drop !important;
+} */
+
+

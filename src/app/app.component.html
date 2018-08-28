@@ -1,0 +1,22 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<!-- <div class="container-fluid row myContainer">
+  
+  <div class="col-lg-4 clientplants bitPadding">
+    <div class="card">
+     <app-client-plant></app-client-plant>
+    </div>
+  </div>
+  <div class="reportChart" class="col-lg-8 bitPadding">
+    <app-Full-reportscharts [parentData]="sampleData"></app-Full-reportscharts>
+  </div>
+  <div class="ScheduleStyle" class="col-lg-12 bitPadding">
+    <app-schedule></app-schedule>
+  </div>
+</div> -->
+<h1>{{title}}</h1>
+<nav>
+  <a routerLink="/schedules">Horarios</a>
+  <a routerLink="/client-plant">plantas</a>
+  <a routerLink="/reportscharts">Graficas</a>
+</nav>
+<router-outlet></router-outlet>

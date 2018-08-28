@@ -1,0 +1,21 @@
+.bs-datepicker{
+    left: 92px !important;
+}
+
+.topLine{
+    border-top-style: solid;
+    border-top-color: rgba(5, 116, 144, 0.69);
+    width: 100%;
+    border-top-width: 1px;
+    box-shadow: 0px 1px 0px rgba(12, 146, 127, 0.55);
+}
+
+input{
+    font-size: inherit;
+    height: 23px !important;
+}
+
+.owl-inputtext{
+    text-align: center;
+}
+

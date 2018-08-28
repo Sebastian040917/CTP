@@ -1,0 +1,60 @@
+<div class="card-header">{{ title }} </div>
+<div class="card-block " style="display: flex;padding-top: 5px;padding-bottom: 0px; ">
+
+  <div class="inner-addon ">
+    <i class="fa fa-search intobox"></i>
+    <input [(ngModel)]="PlantDescriptionTypeHead"
+    placeholder={{placeholderPlant}} class="search">
+
+    <button (click)="AddPlantToClient()" class="btn btn-primary btn-xs handlerpointer" tooltip="Agregar la planta buscada al grid">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </button>
+    <button (click)="SearchMorePlants()" class="btn btn-primary btn-xs handlerpointer" tooltip="Mostrar más plantas en el grid inferior">
+      <i class="fa fa-sort-amount-asc " aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+<div>
+  <div class="clientPlantComponent">
+      <ngx-datatable class='material' [rows]="rows" [rowHeight]="18" [columnMode]="'force'" [headerHeight]="25" [footerHeight]="0"
+        [limit]="limit" [selected]="selected" [selectionType]="'simple'" (activate)="onActivate($event)" (select)='onSelect($event)'>
+        <ngx-datatable-column [width]="1" [sortable]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="true"
+          [checkboxable]="true">
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" name="{{TCH_PlantCode}}" prop="{{TCH_PlantCode}}" [width]="3">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span>{{row.PlantCode}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" name="{{TCH_PlantDescription}}" prop="{{TCH_PlantDescription}}" [width]="65">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span>{{row.PlantDesc}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" name="{{TCH_PlantDuration}}" prop="{{TCH_PlantDuration}}" [width]="5">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span>{{row.Duration}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" name="{{TCH_PlantDistance}}" prop="{{TCH_PlantDistance}}" [width]="8">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span>{{row.Distance}}</span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" name="CTP" prop="CTP" [width]="5">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <span style="text-align: center">
+              <i class="{{row.Ctp}} fa-lg" aria-hidden="true"></i>
+            </span>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-footer>
+          <datatable-pager>
+          </datatable-pager>
+        </ngx-datatable-footer>
+  
+      </ngx-datatable>
+    </div>
+</div>
+<hr>
+<app-datepicker></app-datepicker>
