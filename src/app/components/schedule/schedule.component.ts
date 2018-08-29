@@ -1,5 +1,5 @@
 import { Component, Input, Renderer2, OnDestroy } from '@angular/core';
-import { PlantService } from "../../services/plant/plant.service";
+// import { PlantService } from "../../services/plant/plant.service";
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 

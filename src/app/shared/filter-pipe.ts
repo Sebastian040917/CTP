@@ -7,6 +7,5 @@ export class ForFilterPipe implements PipeTransform {
             return items;
         }
         return items.filter(item => item.type.indexOf(filter) !== -1);
-    } 
-
+    }
 }
